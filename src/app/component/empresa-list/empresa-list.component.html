@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Cadastro de Empresa</h4>
+      <h6 class="card-subtitle mb-3 text-muted">Empresas Cadastradas</h6>
+      <form role="form" name="form">
+          
+          
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">CNPJ</label>
+              <input type="text" class="form-control" name="cnpj" id="cnpj" [(ngModel)]="cnpj" placeholder="Digite o CNPJ para o Filtro">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Nome da Empresa</label>
+              <input type="text" class="form-control" name="nome" [(ngModel)]="nome" id="nome" placeholder="Digite o nome da empresa para o filtro">
+            </div>
+          </div>
+          
+          
+
+        <div class="row mt-2">
+          <div class="col-md-12 text-center">
+            <a title="Nova" [routerLink]="['/empresa/edit']" class="btn btn-success m-2">
+              <span class="fa fa-plus" aria-hidden="true"></span>
+              Novo Cadastro
+            </a>
+              <button (click)="filtrar()" class="btn btn-primary m-2">
+              <span class="fa fa-search" aria-hidden="true"></span>
+              Pesquisar
+            </button>
+          </div>
+        </div>
+        <div class="table-responsive" *ngIf="page && page.content && page.totalElements > 0">
+          <table class="table table-sm table-hover">
+            <caption>Quantidade de registros ({{page.totalElements}})</caption>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of page.content">
+                <td>
+                  {{item.id}}
+                </td>
+                  <td>
+                  {{item.nome}}
+                </td>
+                <td>
+                  {{item.cnpj}}
+                </td>
+                <td>
+                  <a title="Editar" [routerLink]="['/empresa/edit', item.id]" class="m-2">
+                    <span class="fa fa-pencil"></span>
+                    Editar
+                  </a>
+                  <a title="Excluir" href="javascript:void(0);" (click)="onConfirmDelete(item)" class="m-2">
+                    <span class="fa fa-trash"></span>
+                    Excluir
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="page.totalPages > 1">
+            <ngb-pagination [collectionSize]="page.totalElements" [(page)]="pageNumber" [pageSize]="pageSize" size="sm" [boundaryLinks]="true" [maxSize]="5" (pageChange)="onPageChange($event)"></ngb-pagination>
+          </div>
+        </div>
+        <!--
+        <pre>
+          {{ page | json}}
+        </pre>
+        -->
+        <div class="container" *ngIf="page && page.content && page.totalElements == 0">
+          <div class="text-warning">
+            <strong>Nenhum registro encontrado</strong>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Excluir Empresa</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="col-12">
+          Deseja realmente excluir esta empresa?
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary m-2" (click)="modal.close('cancel')">Cancelar</button>
+    <button type="button" class="btn btn-danger m-2" (click)="modal.close('confirm')">Confirmar</button>
+  </div>
+</ng-template>
+<ng-template #msg let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Mensagem</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="col-12">
+          {{mensagem}}
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary m-2" (click)="modal.close('cancel')">Fechar</button>
+  </div>
+</ng-template>

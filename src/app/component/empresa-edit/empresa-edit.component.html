@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Empresa</h4>
+      <h6 class="card-subtitle mb-3 text-muted">Cadastro de empresa</h6>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="form">
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="cnpj">*CNPJ</label>
+            <input type="text" id="cnpj" name="cnpj" formControlName="cnpj" placeholder="CNPJ" maxlength="14" class="form-control" [ngClass]="{'is-invalid': formErrors.cnpj}" required />
+            <div class="invalid-feedback" *ngIf="formErrors.cnpj">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.cnpj }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="tipo">*Tipo</label>
+            <select id="tipo" name="tipo" formControlName="tipo" class="form-control" [ngClass]="{'is-invalid': formErrors.tipo}" required>
+              <option value="">Selecione</option>
+              <option value="1">Matriz</option>
+              <option value="2">Filial</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="formErrors.tipo">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.tipo }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="nome">*Nome</label>
+            <input type="text" id="nome" name="nome" formControlName="nome" placeholder="Nome" maxlength="100" class="form-control" [ngClass]="{'is-invalid': formErrors.nome}"  />
+            <div class="invalid-feedback" *ngIf="formErrors.nome">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.nome }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="razaoSocial">*Razão Social</label>
+            <input type="text" id="razaoSocial" name="razaoSocial" formControlName="razaoSocial" placeholder="Razão Social" maxlength="100" class="form-control" [ngClass]="{'is-invalid': formErrors.razaoSocial}" required />
+            <div class="invalid-feedback" *ngIf="formErrors.razaoSocial">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.razaoSocial }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="telefone">*Telefone</label>
+            <input type="text" id="telefone" name="telefone" formControlName="telefone" placeholder="Telefone" maxlength="20" class="form-control" [ngClass]="{'is-invalid': formErrors.telefone}" required />
+            <div class="invalid-feedback" *ngIf="formErrors.telefone">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.telefone }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="email">*E-mail</label>
+            <input type="text" id="email" name="email" formControlName="email" placeholder="E-mail" maxlength="100" class="form-control" [ngClass]="{'is-invalid': formErrors.email}" required />
+            <div class="invalid-feedback" *ngIf="formErrors.email">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.email }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="cep">*CEP</label>
+            <div class="input-group">
+              <input type="text" id="cep" name="cep" formControlName="cep" placeholder="CEP" maxlength="9" class="form-control" [ngClass]="{'is-invalid': formErrors.cep}" required />
+              <div class="input-group-append">
+                <button title="Pesquisar CEP" class="btn btn-secondary" type="button" (click)="onClickCep()">
+                  <span class="fa fa-search"></span>
+                </button>
+              </div>
+            </div>
+            <div class="invalid-feedback" *ngIf="formErrors.cep">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.cep }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="estado">*Estado</label>
+            <select id="estado" name="estado" formControlName="estado" class="form-control" [ngClass]="{'is-invalid': formErrors.estado}" required>
+              <option value="">Selecione</option>
+              <option value="DF">Distrito Federal</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="formErrors.estado">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.estado }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="bairro">*Bairro</label>
+            <input type="text" id="bairro" name="bairro" formControlName="bairro" placeholder="Bairro" maxlength="100" class="form-control" [ngClass]="{'is-invalid': formErrors.bairro}" required />
+            <div class="invalid-feedback" *ngIf="formErrors.estado">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.bairro }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="cidade">*Cidade</label>
+            <input type="text" id="cidade" name="cidade" formControlName="cidade" placeholder="Cidade" maxlength="100" class="form-control" [ngClass]="{'is-invalid': formErrors.cidade}" required />
+            <div class="invalid-feedback" *ngIf="formErrors.cidade">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.cidade }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="logradouro">*Logradouro</label>
+            <input type="text" id="logradouro" name="logradouro" formControlName="logradouro" placeholder="Logradouro" maxlength="100" class="form-control" [ngClass]="{'is-invalid': formErrors.logradouro}" required />
+            <div class="invalid-feedback" *ngIf="formErrors.logradouro">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.logradouro }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 col-xs-12">
+            <label class="form-control-label" for="complemento">Complemento</label>
+            <input type="text" id="complemento" name="complemento" formControlName="complemento" placeholder="Complemento" maxlength="100" class="form-control" [ngClass]="{'is-invalid': formErrors.complemento}"  />
+            <div class="invalid-feedback" *ngIf="formErrors.complemento">
+              <span class="fa fa-alert"></span>
+              {{ formErrors.complemento }}
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12 text-center">
+            <a [routerLink]="['/empresa']" class="btn btn-warning m-2">
+              <span class="fa fa-arrow-left"></span>
+              Voltar
+            </a>
+            <button type="submit" [disabled]="!form.valid" class="btn btn-primary m-2">
+              <span class="fa fa-save"></span>
+              Salvar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
