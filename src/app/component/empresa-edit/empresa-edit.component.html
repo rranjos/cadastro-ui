@@ -7,7 +7,7 @@
         <div class="row">
           <div class="form-group col-md-6 col-sm-12 col-xs-12">
             <label class="form-control-label" for="cnpj">*CNPJ</label>
-            <input type="text" id="cnpj" name="cnpj" formControlName="cnpj" placeholder="CNPJ" maxlength="14" class="form-control" [ngClass]="{'is-invalid': formErrors.cnpj}" required />
+            <input type="text" id="cnpj" name="cnpj" formControlName="cnpj" placeholder="CNPJ" maxlength="14" class="form-control" [ngClass]="{'is-invalid': formErrors.cnpj}"  />
             <div class="invalid-feedback" *ngIf="formErrors.cnpj">
               <span class="fa fa-alert"></span>
               {{ formErrors.cnpj }}
@@ -15,7 +15,7 @@
           </div>
           <div class="form-group col-md-6 col-sm-12 col-xs-12">
             <label class="form-control-label" for="tipo">*Tipo</label>
-            <select id="tipo" name="tipo" formControlName="tipo" class="form-control" [ngClass]="{'is-invalid': formErrors.tipo}" required>
+            <select id="tipo" name="tipo" formControlName="tipo" class="form-control" [ngClass]="{'is-invalid': formErrors.tipo}" >
               <option value="">Selecione</option>
               <option value="1">Matriz</option>
               <option value="2">Filial</option>
@@ -132,3 +132,23 @@
     </div>
   </div>
 </div>
+<ng-template #msg let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Mensagem</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="body" >
+          {{mensagem}}
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary m-2" (click)="modal.close('cancel')">Fechar</button>
+  </div>
+</ng-template>

@@ -90,17 +90,22 @@ export class EmpresaListComponent implements OnInit {
   }
   
    private doFilter(): void {
-    const observable = this.empresaService.filtrar(this.nome, this.cnpj, this.pageNumber, this.pageSize);
-    observable.subscribe(
-      page => {
-        this.page = page;
-        this.pageNumber = page.number;
-        this.pageSize = page.size;
-        this.totalElements = page.totalElements;
-      },
-      response => this.onError(response),
-      () => console.log('Complete')
-    );
+    console.log(this.nome);
+     if(!this.nome && !this.cnpj){
+      this.showDialog( "Informe o nome ou o CNPJ da empresa a ser pesquisada");
+     }else{ 
+      const observable = this.empresaService.filtrar(this.nome, this.cnpj, this.pageNumber, this.pageSize);
+      observable.subscribe(
+        page => {
+          this.page = page;
+          this.pageNumber = page.number;
+          this.pageSize = page.size;
+          this.totalElements = page.totalElements;
+        },
+        response => this.onError(response),
+        () => console.log('Complete')
+      );
+      }
   }
 
   public onDelete() {
@@ -131,7 +136,7 @@ export class EmpresaListComponent implements OnInit {
     if (typeof response === 'string') {
       msg = response;
     } else if ((response.error) && (response.error.message)) {
-      msg = response.error.message;
+      msg = response.error.erros;
     } 
 
     this.showDialog( msg);
