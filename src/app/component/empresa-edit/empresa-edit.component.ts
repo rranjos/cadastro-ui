@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import {ViewChild, ElementRef} from '@angular/core';
 
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +24,11 @@ export class EmpresaEditComponent implements OnInit {
   id: number;
 
   form: FormGroup;
+
+  mensagem: string;
+
+  @ViewChild('msg') msg:ElementRef;
+  @ViewChild('content') content:ElementRef;
 
   readonly formErrors = {
     telefone: '',
@@ -137,13 +143,13 @@ export class EmpresaEditComponent implements OnInit {
         ]
       ],
       tipo: ['', [
-          Validators.required,
+          
           Validators.minLength(1),
           Validators.maxLength(10)
         ]
       ],
       nome: ['', [
-        Validators.required,
+        
           Validators.minLength(2),
           Validators.maxLength(100)
         ]
@@ -290,42 +296,25 @@ console.log(empresa);
     );
   }
 
-  protected onSuccess(item: any) {
-    let msg = ['Operação realizada corretamente'];
-    if (typeof item === 'string') {
-      msg = [item];
-    } else if (item instanceof Array) {
-      msg = item;
-    } else if ((item) && (item.content)) {
-      msg = [item.content];
-    }
-    this.showDialog('Mensagem', msg, 'primary');
-  }
-
-  protected onError(response: Response | any) {
-    console.log(JSON.stringify(response));
-
-    let msg = ['Operação não foi realizada corretamente'];
+   protected onError(response: Response | any) {
+    let msg = 'Operação não foi realizada corretamente';
     if (typeof response === 'string') {
-      msg = [response];
-    } else if ((response) && (response.content)) {
-      msg = [response.content];
-    } else if ((response) && (response.error) && (response.error.message)) {
-      msg = [response.error.message];
+      msg = response;
+    } else if ((response.error) && (response.error.message)) {
+      msg = response.error.resume;
+    } 
+
+    this.showDialog( msg);
+  }
+
+  protected showDialog(msg: string) {
+    this.mensagem = msg;
+     this.modalService.open(this.msg, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      
+     }, (reason) => {
+       console.log(reason);
+     });
     }
-    this.showDialog('Erro', msg, 'danger');
-  }
-
-  protected showDialog(title: string, msg: string| Array<string>, type: string) {
-    //if (this.modalService) {
-    //  const ref = this.modalService.open(DialogComponent);
-    //  const instance: DialogComponent = ref.componentInstance as DialogComponent;
-    //  instance.configure(title, msg, type, true);
-    //} else {
-    //  this.logger.debug('Modal Service not found');
-    //}
-  }
-
   
 
 }
