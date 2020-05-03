@@ -11,12 +11,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmpresaEditComponent } from './component/empresa-edit/empresa-edit.component';
 import { EmpresaListComponent } from './component/empresa-list/empresa-list.component';
+import { UploadComponent } from './component/upload/empresa-upload.component';
 import { EmpresaService } from './service/empresa.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmpresaEditComponent,
+    UploadComponent,
     EmpresaListComponent
   ],
   imports: [
