@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UploadComponent } from './upload.component';
+import { UploadComponent } from './empresa-upload.component';
 
 describe('UploadComponent', () => {
   let component: UploadComponent;
